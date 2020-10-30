@@ -3,7 +3,6 @@ package services
 
 import javax.inject._
 import play.api._
-import play.api.inject.ApplicationLifecycle
 import play.api.libs.json._
 import play.api.libs.ws._
 import scala.concurrent.Future
@@ -12,7 +11,7 @@ import scala.concurrent.Future
 case class Picture(id: String, cropped_picture: String)
 
 @Singleton
-class PictureService @Inject()(lifecycle: ApplicationLifecycle, ws: WSClient) extends Logging {
+class PictureService @Inject()(ws: WSClient) extends Logging {
 
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
   var cache: Option[List[PictureDetail]] = None

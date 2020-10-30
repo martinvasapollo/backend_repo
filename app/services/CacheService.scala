@@ -2,12 +2,10 @@ package services
 
 import akka.actor.Actor
 import javax.inject.{Inject, Singleton}
-import jdk.jshell.spi.ExecutionControl.UserException
 import play.api.Logging
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
-
 import scala.concurrent.ExecutionContext
 
 
@@ -21,9 +19,7 @@ class CacheUpdateActor @Inject()(c: CacheService)(implicit ec: ExecutionContext)
 }
 
 @Singleton
-class CacheService @Inject()(lifecycle: ApplicationLifecycle,
-                             ws: WSClient,
-                             pictureDetailService: PictureDetailService,
+class CacheService @Inject()(pictureDetailService: PictureDetailService,
                              sessionService: SessionService) extends Logging {
 
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global

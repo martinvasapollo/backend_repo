@@ -1,18 +1,14 @@
 package services
 
 import javax.inject.{Inject, Singleton}
-import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
-
 import scala.concurrent.Future
-
 
 case class AuthResponse(auth: Boolean, token: String)
 
-
 @Singleton
-class SessionService @Inject()(lifecycle: ApplicationLifecycle, ws: WSClient) {
+class SessionService @Inject()(ws: WSClient) {
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
   def withSession[A](f: AuthResponse => Future[A]): Future[A] = {

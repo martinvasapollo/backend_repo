@@ -3,10 +3,9 @@ package services
 import javax.inject.{Inject, Singleton}
 import jdk.jshell.spi.ExecutionControl.UserException
 import play.api.Logging
-import play.api.inject.ApplicationLifecycle
 
 @Singleton
-class SearchService @Inject()(lifecycle: ApplicationLifecycle, cacheService: CacheService) extends Logging {
+class SearchService @Inject()(cacheService: CacheService) extends Logging {
 
   def search(query: String): Seq[PictureDetail] = {
     if (cacheService.cache.isEmpty) {

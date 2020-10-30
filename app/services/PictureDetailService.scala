@@ -2,7 +2,6 @@ package services
 
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
-import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 
@@ -13,7 +12,7 @@ case class PictureDetail(id: String, author: String, tags: String, cropped_pictu
 
 
 @Singleton
-class PictureDetailService @Inject()(lifecycle: ApplicationLifecycle, ws: WSClient, pictureService: PictureService) extends Logging {
+class PictureDetailService @Inject()(ws: WSClient, pictureService: PictureService) extends Logging {
 
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
