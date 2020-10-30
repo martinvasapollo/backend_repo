@@ -15,7 +15,9 @@ class SearchService @Inject()(cacheService: CacheService) extends Logging {
       entry.id.contains(query) ||
         entry.author.contains(query) ||
         entry.camera.getOrElse("").contains(query) ||
-        entry.tags.contains(query)
+        entry.tags.contains(query) ||
+        entry.cropped_picture.contains(query) ||
+        entry.full_picture.contains(query)
     }
   }
 }

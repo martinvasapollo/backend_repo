@@ -3,10 +3,8 @@ package services
 import akka.actor.Actor
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
-import play.api.inject.ApplicationLifecycle
-import play.api.libs.json.Json
-import play.api.libs.ws.WSClient
-import scala.concurrent.ExecutionContext
+
+import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
@@ -25,8 +23,7 @@ class CacheService @Inject()(pictureDetailService: PictureDetailService,
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
   var cache: Option[List[PictureDetail]] = None
 
-  def refreshCache() = {
-    implicit val PictureWrites = Json.writes[PictureDetail]
+  def refreshCache(): Future[Unit] = {
     sessionService.withSession { implicit session =>
       pictureDetailService.getPicturesDetails().map { e =>
         cache = Some(e.toList)
