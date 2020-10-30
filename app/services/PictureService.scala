@@ -22,10 +22,10 @@ class PictureService @Inject()(lifecycle: ApplicationLifecycle, ws: WSClient) ex
     val request = ws.url("http://interview.agileengine.com/images?page=" + page).addHttpHeaders("Authorization" -> ("Bearer " + session.token)).get()
     request.flatMap { r =>
       val hasMore = (r.json \ "hasMore").validate[Boolean].get
+      val data = (r.json \ "pictures").validate[Seq[Picture]].get
       if (!hasMore) {
-        Future(Seq())
+        Future(data)
       } else {
-        val data = (r.json \ "pictures").validate[Seq[Picture]].get
         logger.info("get page " + page)
         getPicturesIds(page + 1).map(e => data ++ e)
       }
